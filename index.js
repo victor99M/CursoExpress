@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 app.get("/user", (req, res) => {
   res.json({
@@ -8,7 +9,9 @@ app.get("/user", (req, res) => {
   });
 });
 
-app.post("/abaout", (req, res) => {
+app.post("/user/:id", (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
   res.send("POST REQUEST RECEIVED");
 });
 
