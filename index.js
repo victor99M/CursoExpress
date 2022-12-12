@@ -1,12 +1,24 @@
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
+
 app.use(express.json());
-//simepre pasa por esa ruta en caso de poner next hasta ahi termina con next ejecuta las demas rutas
-app.all("/user", (req, res, next) => {
-  console.log("por aqui paso");
-  //   res.send("finish");
+app.use(logger);
+
+// Middlewares o funciones sirven para porcesar datos antes de que lleguen a las rutas
+function logger(req, res, next) {
+  console.log(
+    `Route Received:${req.protocol} :// ${req.get("host")}${req.originalUrl} `
+  );
   next();
-});
+}
+
+//simepre pasa por esa ruta en caso de poner next hasta ahi termina con next ejecuta las demas rutas
+// app.all("/user", (req, res, next) => {
+//   console.log("por aqui paso");
+//   //   res.send("finish");
+//   next();
+// });
 
 app.get("/user", (req, res) => {
   res.json({
